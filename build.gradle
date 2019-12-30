@@ -26,3 +26,29 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+ext {
+    // app 相关版本控制
+    versions = [
+            sdkMinVersion    : 15,
+            sdkTargetVersion : 28,
+
+            sdkCompileVersion: 28,
+            toolsBuildVersion: "29.0.1",
+
+            appVersionCode   : 1,
+            appVersionName   : "1.0.0"
+    ]
+
+    // 依赖相关版本控制
+    depVersion = [
+
+    ]
+
+    // 依赖
+    deps = [
+            rxjava   : "io.reactivex.rxjava2:rxjava:2.2.0",
+            rxandroid: "io.reactivex.rxjava2:rxandroid:2.0.1",
+            retrofit : "com.squareup.retrofit2:retrofit:2.4.0",
+            converter: "com.squareup.retrofit2:converter-gson:2.4.0"
+    ]
+}
