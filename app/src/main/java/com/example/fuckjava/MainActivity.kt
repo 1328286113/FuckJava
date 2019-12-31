@@ -10,6 +10,7 @@ import retrofit2.Retrofit
 class MainActivity : AppCompatActivity() {
     private val TAG: String = "MainActivity"
     var democlass: DemoClass = DemoClass()
+    var paramsBean1: ParamsBean1 = ParamsBean1("普京大帝")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -17,8 +18,10 @@ class MainActivity : AppCompatActivity() {
 //        KList()
 //        KSet()
 //        KMap()
-        KSequence()
+//        KSequence()
 //        getData()
+        paramsBean1.sayHi()
+        paramsBean1.sayHi(age = 10)
     }
 
     private fun getData() {
