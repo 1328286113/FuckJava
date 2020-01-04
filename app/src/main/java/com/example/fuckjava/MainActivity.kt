@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Retrofit
 
@@ -20,8 +22,10 @@ class MainActivity : AppCompatActivity() {
 //        KMap()
 //        KSequence()
 //        getData()
-        paramsBean1.sayHi()
-        paramsBean1.sayHi(age = 10)
+//        paramsBean1.sayHi()
+//        paramsBean1.sayHi(age = 10)
+//        paramsBean1.rawString()
+        paramsBean1.TestRange()
     }
 
     private fun getData() {
@@ -51,6 +55,13 @@ class MainActivity : AppCompatActivity() {
         Log.e(TAG, strs.get(1))
         Log.e(TAG, (strs.contains("a")).toString())
         Log.e(TAG, strs.first())
+        strs.forEach { i ->
+            println("$i.")
+        }
+
+        for (element in strs){
+            println(element)
+        }
 //        Log.e(TAG, (strs.find { strs1 }).toString())
     }
 
@@ -58,6 +69,17 @@ class MainActivity : AppCompatActivity() {
         val strs: List<String> = listOf("a", "b", "c")
         val anys: List<Any> = strs  //支持协变  与java相反
         Log.e(TAG, anys.toString())
+        val filterstrs: List<String> = strs.filter { i ->
+            i.equals("c")
+        }
+
+        val changestrs: List<String> = strs.map { i ->
+            "fuck$i"
+        }
+
+        val flatstrs: List<Any> = strs.flatMap { i ->
+            listOf(i, anys[0])
+        }
     }
 
     private fun KSet() {
@@ -76,13 +98,24 @@ class MainActivity : AppCompatActivity() {
         Log.e(TAG, value1 as String)
     }
 
-    private fun KSequence(){
-        val sequence = sequenceOf("a","b","c")
+    private fun KSequence() {
+        val sequence = sequenceOf("a", "b", "c")
 
-        val list = listOf("aa","bb","cc")
+        val list = listOf("aa", "bb", "cc")
         list.asSequence()
 
         val s = generateSequence(0) { it + 1 }
         Log.e(TAG, s.toString())
+    }
+
+    /**
+     * 嵌套函数
+     */
+    fun login(name: String, pwd: String) {
+        fun validate(value: String) {
+            Toast.makeText(this, "请填写", LENGTH_SHORT).show()
+        }
+        validate(name)
+        validate(pwd)
     }
 }
