@@ -16,16 +16,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        tv.setOnClickListener(myonClick)
 //        KArray()
 //        KList()
 //        KSet()
 //        KMap()
-//        KSequence()
+        KSequence()
 //        getData()
 //        paramsBean1.sayHi()
 //        paramsBean1.sayHi(age = 10)
 //        paramsBean1.rawString()
-        paramsBean1.TestRange()
+//        paramsBean1.TestRange()
     }
 
     private fun getData() {
@@ -34,7 +35,10 @@ class MainActivity : AppCompatActivity() {
 
     val myonClick = object : View.OnClickListener {
         override fun onClick(v: View?) {
-
+            when(v?.id){
+                R.id.tv -> getData()
+                else -> return
+            }
         }
     }
 
@@ -59,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             println("$i.")
         }
 
-        for (element in strs){
+        for (element in strs) {
             println(element)
         }
 //        Log.e(TAG, (strs.find { strs1 }).toString())
@@ -99,13 +103,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun KSequence() {
-        val sequence = sequenceOf("a", "b", "c")
+        val sequence = sequenceOf(1, 2, 3)
 
         val list = listOf("aa", "bb", "cc")
         list.asSequence()
 
         val s = generateSequence(0) { it + 1 }
         Log.e(TAG, s.toString())
+
+        val chose = sequence
+            .map { i ->
+                println("Map $i")
+                i * 2
+            }.filter { i ->
+                println("Filter $i")
+                i % 4 == 0
+            }
+        print(chose.first()) //只有当chose被调用的时候才会循环执行.map & .filter 并且满足条件后不再循环
     }
 
     /**
@@ -113,7 +127,9 @@ class MainActivity : AppCompatActivity() {
      */
     fun login(name: String, pwd: String) {
         fun validate(value: String) {
-            Toast.makeText(this, "请填写", LENGTH_SHORT).show()
+            if (value.isEmpty()) {
+                Toast.makeText(this, "请填写", LENGTH_SHORT).show()
+            }
         }
         validate(name)
         validate(pwd)

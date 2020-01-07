@@ -15,4 +15,5 @@ class ParamsBean {
         this.type = type
     }
 
+
 }
