@@ -1,9 +1,13 @@
 package com.example.fuckjava
 
-import retrofit2.http.POST
-import retrofit2.http.QueryMap
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Streaming
+import retrofit2.http.Url
 
-class HttpApi {
-//    @POST()
-//    Single<JsonBean>getData(@QueryMap Map<String,Any> map)
+interface HttpApi {
+    @GET
+    @Streaming
+    fun download(@Url url: String): Call<ResponseBody>
 }
