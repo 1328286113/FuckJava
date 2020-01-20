@@ -6,8 +6,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import com.example.fuckjava.network.RetrofitManager
 import kotlinx.android.synthetic.main.activity_main.*
-import retrofit2.Retrofit
 
 class MainActivity : AppCompatActivity() {
     private val TAG: String = "MainActivity"

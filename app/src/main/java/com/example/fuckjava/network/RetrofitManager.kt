@@ -1,9 +1,13 @@
-package com.example.fuckjava
+package com.example.fuckjava.network
 
+import com.example.fuckjava.HttpApi
+import com.example.fuckjava.network.converter.JsonAndStringConverters
+import com.example.fuckjava.network.converter.StringConvertFactory
 import java.util.concurrent.TimeUnit
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * @author yk on 2018/7/9  15:34.
@@ -23,6 +27,7 @@ object RetrofitManager {
         get() {
             if (mRetrofitBuilder == null) {
                 mRetrofitBuilder = Retrofit.Builder()
+                    .addConverterFactory(JsonAndStringConverters.MulTypeConverterFactory(GsonConverterFactory.create(),StringConvertFactory.create()))
                     .baseUrl(baseUrl)
                     .client(
                         mHttpClientBuilder
@@ -32,6 +37,7 @@ object RetrofitManager {
                             .build()
                     )
             }
-            return mRetrofitBuilder!!.build().create(HttpApi::class.java)
+            return mRetrofitBuilder!!.build().create(
+                HttpApi::class.java)
         }
 }

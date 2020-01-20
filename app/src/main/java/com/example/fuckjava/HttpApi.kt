@@ -10,4 +10,7 @@ interface HttpApi {
     @GET
     @Streaming
     fun download(@Url url: String): Call<ResponseBody>
+
+    @GET
+    fun getNews(@Url url: String): Call<JsonBean>
 }
