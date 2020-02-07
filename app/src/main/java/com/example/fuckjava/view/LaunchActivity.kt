@@ -1,9 +1,11 @@
-package com.example.fuckjava
+package com.example.fuckjava.view
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fuckjava.R
+import com.example.fuckjava.model.JsonBean
 import com.example.fuckjava.network.RetrofitManager
 import kotlinx.android.synthetic.main.activity_launch.*
 import kotlinx.coroutines.*

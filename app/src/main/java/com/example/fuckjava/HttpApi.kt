@@ -1,5 +1,6 @@
 package com.example.fuckjava
 
+import com.example.fuckjava.model.JsonBean
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET

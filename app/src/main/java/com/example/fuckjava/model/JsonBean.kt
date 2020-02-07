@@ -1,4 +1,4 @@
-package com.example.fuckjava
+package com.example.fuckjava.model
 
 data class JsonBean(
     val error_code: Int,
