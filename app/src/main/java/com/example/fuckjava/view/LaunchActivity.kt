@@ -4,8 +4,9 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.fuckjava.NewsID
 import com.example.fuckjava.R
-import com.example.fuckjava.model.JsonBean
+import com.example.fuckjava.josnbean.NewsBean
 import com.example.fuckjava.network.RetrofitManager
 import kotlinx.android.synthetic.main.activity_launch.*
 import kotlinx.coroutines.*
@@ -43,8 +44,9 @@ class LaunchActivity : AppCompatActivity() {
         null
     }
 
-    private suspend fun getNews(): JsonBean? = withContext(Dispatchers.IO) {
-        return@withContext RetrofitManager.retrofitService.getNews("http://zhouxunwang.cn/data/?id=75&key=Ub6U8YlnQo/+ipiJ94wxR2rIPgTgsJeZ/px16A&type=top")
+    private suspend fun getNews(): NewsBean? = withContext(Dispatchers.IO) {
+        return@withContext RetrofitManager.retrofitService.getNews(75, NewsID,"top")
+//        return@withContext RetrofitManager.retrofitService.getNews("http://zhouxunwang.cn/data/?id=75&key=Ub6U8YlnQo/+ipiJ94wxR2rIPgTgsJeZ/px16A&type=top")
             .execute().body()
     }
 

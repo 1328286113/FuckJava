@@ -1,4 +1,4 @@
-package com.example.fuckjava
+package com.example.fuckjava.util
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

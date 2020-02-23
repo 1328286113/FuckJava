@@ -3,10 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.example.fuckjava.model.Data"/>
+        <import type="com.example.fuckjava.josnbean.Data" />
+        <import type="com.example.fuckjava.view.adapter.ListAdapter.ViewHolder"/>
         <variable
             name="bean"
             type="Data" />
+        <variable
+            name="holder"
+            type="ViewHolder" />
     </data>
 
     <LinearLayout
@@ -16,15 +20,15 @@
 
         <ImageView
             android:id="@+id/iv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="300dp"
-            app:url="@{bean.thumbnail_pic_s}"
-            app:error="@{@drawable/ic_launcher_background}"/>
+            app:error="@{@drawable/ic_launcher_background}"
+            app:url="@{bean.thumbnail_pic_s}"/>
 
         <TextView
             android:id="@+id/tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{bean.title,default=qwee}"/>
+            android:text="@{bean.title,default=qwee}" />
     </LinearLayout>
 </layout>

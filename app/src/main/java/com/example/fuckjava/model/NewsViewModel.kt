@@ -4,12 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.fuckjava.NewsID
+import com.example.fuckjava.josnbean.Data
+import com.example.fuckjava.josnbean.NewsBean
 import com.example.fuckjava.network.RetrofitManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class JsonViewModel :ViewModel() {
+class NewsViewModel :ViewModel() {
     private val data:MutableLiveData<List<Data>> by lazy {
         MutableLiveData<List<Data>>().also{
             loadData()
@@ -31,8 +34,9 @@ class JsonViewModel :ViewModel() {
         }
     }
 
-    private suspend fun getNews(): JsonBean? = withContext(Dispatchers.IO) {
-        return@withContext RetrofitManager.retrofitService.getNews("http://zhouxunwang.cn/data/?id=75&key=Ub6U8YlnQo/+ipiJ94wxR2rIPgTgsJeZ/px16A&type=top")
+    private suspend fun getNews(): NewsBean? = withContext(Dispatchers.IO) {
+//        return@withContext RetrofitManager.retrofitService.getNews("http://zhouxunwang.cn/data/?id=75&key=Ub6U8YlnQo/+ipiJ94wxR2rIPgTgsJeZ/px16A&type=top")
+        return@withContext RetrofitManager.retrofitService.getNews(75, NewsID,"top")
             .execute().body()
     }
 }

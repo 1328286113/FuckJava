@@ -7,12 +7,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fuckjava.R
 import com.example.fuckjava.databinding.ItemJokerBinding
-import com.example.fuckjava.model.Data
+import com.example.fuckjava.josnbean.Data
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private var datas:List<Data>
-
-
     constructor(datas: List<Data>) : super() {
         this.datas = datas
     }
@@ -22,18 +20,19 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ViewHolder> {
     }
 
     class ViewHolder: RecyclerView.ViewHolder {
-        private var itemjokerBinding: ItemJokerBinding
+        private val itemjokerBinding: ItemJokerBinding?
         constructor(v:View) : super(v){
-            itemjokerBinding = DataBindingUtil.bind(v)!!
+            itemjokerBinding = DataBindingUtil.bind(v)
         }
-        fun bind(itembean:Data){
-            itemjokerBinding.bean = itembean
+
+        fun bind(itembean: Data){
+            itemjokerBinding?.bean = itembean
         }
     }
-
     override fun getItemCount(): Int = datas.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+//        holder.itemView.tag = position
         holder.bind(datas[position])
     }
 }
