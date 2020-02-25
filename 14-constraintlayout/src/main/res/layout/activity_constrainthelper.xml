@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="group_iv1,group_iv2,group_iv3" />
+
+    <ImageView
+        android:id="@+id/group_iv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/qq"
+        app:layout_constraintBottom_toBottomOf="@+id/btn1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/group_iv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sun"
+        app:layout_constraintBottom_toBottomOf="@+id/btn1"
+        app:layout_constraintStart_toEndOf="@+id/group_iv1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/group_iv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/twitter"
+        app:layout_constraintBottom_toBottomOf="@+id/btn1"
+        app:layout_constraintStart_toEndOf="@+id/group_iv2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/group_iv3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.helper.widget.Layer
+        android:id="@+id/layer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        app:constraint_referenced_ids="layer_iv1,layer_iv2,layer_iv3"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/layer_iv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/qzone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.15" />
+
+    <ImageView
+        android:id="@+id/layer_iv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/qzone"
+        app:layout_constraintBottom_toBottomOf="@+id/layer_iv1"
+        app:layout_constraintLeft_toRightOf="@+id/layer_iv1"
+        app:layout_constraintTop_toTopOf="@+id/layer_iv1" />
+
+    <ImageView
+        android:id="@+id/layer_iv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/qzone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/layer_iv1"
+        app:layout_constraintTop_toBottomOf="@+id/layer_iv2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="layer"
+        app:layout_constraintBottom_toBottomOf="@+id/layer_iv1"
+        app:layout_constraintLeft_toRightOf="@+id/layer_iv2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/layer_iv1" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="end"
+        app:constraint_referenced_ids="barrier_tv1,barrier_tv2" />
+
+    <TextView
+        android:id="@+id/barrier_tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dsfdsadaf"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35" />
+
+    <TextView
+        android:id="@+id/barrier_tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sdfdsafwgre"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barrier_tv1" />
+
+    <TextView
+        android:id="@+id/barrier_iv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="fdafds"
+        app:layout_constraintBaseline_toBaselineOf="@+id/barrier_tv1"
+        app:layout_constraintStart_toEndOf="@+id/barrier" />
+
+    <ImageView
+        android:id="@+id/barrier_iv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/wechat_friend"
+        app:layout_constraintBottom_toBottomOf="@+id/barrier_tv2"
+        app:layout_constraintStart_toStartOf="@+id/barrier_iv1"
+        app:layout_constraintTop_toTopOf="@+id/barrier_tv2" />
+
+    <androidx.constraintlayout.widget.Placeholder
+        android:id="@+id/placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.55" />
+
+    <androidx.constraintlayout.helper.widget.Flow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:constraint_referenced_ids="placeholder_iv1,placeholder_iv2,placeholder_iv3,placeholder_iv4,placeholder_iv5,placeholder_iv6,placeholder_iv7"
+        app:flow_horizontalGap="25dp"
+        app:flow_verticalGap="8dp"
+        app:flow_wrapMode="aligned"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/placeholder" />
+
+    <ImageView
+        android:id="@+id/placeholder_iv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:src="@drawable/wechat"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/placeholder_iv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:src="@drawable/weibo"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/placeholder_iv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:src="@drawable/twitter" />
+
+    <ImageView
+        android:id="@+id/placeholder_iv4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:onClick="onClick"
+        android:src="@drawable/qq" />
+
+    <ImageView
+        android:id="@+id/placeholder_iv5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:src="@drawable/moon" />
+
+    <ImageView
+        android:id="@+id/placeholder_iv6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:src="@drawable/wechat_friend" />
+
+    <ImageView
+        android:id="@+id/placeholder_iv7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:src="@drawable/qzone" />
+</androidx.constraintlayout.widget.ConstraintLayout>
