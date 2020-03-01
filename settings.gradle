@@ -1,2 +1,2 @@
-include ':app', ':14-constraintlayout'
+include ':app', ':14-constraintlayout', ':15-motionlayout'
 rootProject.name='FuckJava'

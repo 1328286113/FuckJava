@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetEnd="@+id/end"
+        app:constraintSetStart="@+id/start"
+        app:duration="1000">
+        <OnSwipe app:touchRegionId="@id/view" />
+        <KeyFrameSet>
+            <KeyPosition
+                app:motionTarget="@id/view"
+                app:curveFit="linear"
+                app:framePosition="80"
+                app:keyPositionType="deltaRelative"
+                app:percentWidth="0.0"
+                app:percentX="0.0"
+                app:percentY="0.8" />
+        </KeyFrameSet>
+    </Transition>
+    <ConstraintSet android:id="@+id/start">
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint android:id="@+id/view">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:src="@drawable/avatar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent" />
+        </Constraint>
+    </ConstraintSet>
+</MotionScene>

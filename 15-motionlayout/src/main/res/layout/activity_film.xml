@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layoutDescription="@xml/scene_motion_layout"
+    tools:context=".FilmActivity">
+
+    <View
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_film_cover"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/film_cover"
+        app:layout_constraintTop_toTopOf="@+id/background"
+        app:layout_constraintBottom_toBottomOf="@+id/background"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/text_film_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/image_film_cover"
+        app:layout_constraintTop_toTopOf="@id/image_film_cover"
+        android:layout_marginLeft="16dp"
+        tools:ignore="RtlHardcoded" />
+
+    <RatingBar
+        android:id="@+id/rating_film_rating"
+        style="?attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:paddingVertical="8dp"
+        android:progressTint="@color/colorAccent"
+        app:layout_constraintTop_toBottomOf="@id/text_film_title"
+        app:layout_constraintStart_toStartOf="@+id/text_film_title"
+        tools:ignore="UnusedAttribute" />
+
+    <TextView
+        android:id="@+id/film_description_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/file_description_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/background" />
+
+    <TextView
+        android:id="@+id/text_film_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/film_description_title" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_favourite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_bookmark_24dp"
+        android:tint="@color/material_on_surface_emphasis_medium"
+        app:layout_constraintStart_toStartOf="@id/background"
+        app:layout_constraintEnd_toEndOf="@id/background"
+        app:layout_constraintBottom_toBottomOf="@id/background"
+        app:layout_constraintTop_toBottomOf="@id/background"
+        app:fabSize="mini"
+        tools:ignore="VectorDrawableCompat" />
+</androidx.constraintlayout.motion.widget.MotionLayout>
