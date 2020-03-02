@@ -11,16 +11,19 @@
         android:id="@+id/btn_square"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:text="square"/>
     <Button
         android:id="@+id/btn_circle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:text="circle"/>
     <Button
         android:id="@+id/btn_taglayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="onClick"
         android:text="taglayout"/>
 
 </LinearLayout>

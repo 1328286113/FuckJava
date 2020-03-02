@@ -35,6 +35,8 @@ class ListActivity : AppCompatActivity() {
         ItemClickSupport.addTo(rv).addOnItemClickListener(object :ItemClickSupport.OnItemClickListener{
             override fun onItemClicked(recyclerView: RecyclerView, position: Int, v: View) {
                 Toast.makeText(this@ListActivity,"itemclick：$position",Toast.LENGTH_SHORT).show()
+                jsonViewModel.data.value?.get(position)?.title = "数据更改"
+                listadapter.notifyItemChanged(position)
             }
         }).addOnChildClickListener(R.id.iv,object :ItemClickSupport.OnChildClickListener{
             override fun onChildClicked(recyclerView: RecyclerView, position: Int, v: View) {

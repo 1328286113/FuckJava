@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class NewsViewModel :ViewModel() {
-    private val data:MutableLiveData<List<Data>> by lazy {
+    val data:MutableLiveData<List<Data>> by lazy {
         MutableLiveData<List<Data>>().also{
             loadData()
         }

@@ -11,7 +11,6 @@ import com.example.fuckjava.model.LoginBean
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener{
     lateinit var lbean: LoginBean
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var activityLoginBinding: ActivityLogintestBinding = DataBindingUtil.setContentView(this, R.layout.activity_logintest)
