@@ -1,19 +1,22 @@
 package com.example.fuckjava.view
 
+import android.animation.ObjectAnimator
 import android.animation.TypeEvaluator
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fuckjava.R
 import com.example.fuckjava.customview.d_bitmap_drawable.MaterialEditText
+import com.example.fuckjava.databinding.ActivityCustomviewBinding
 
 class CustomviewActivity : AppCompatActivity() {
-    lateinit var view: MaterialEditText
+    lateinit var viewBinding :ActivityCustomviewBinding
+
     var personages: Array<String> = arrayOf("泷泽萝拉", "樱井步", "小川阿佐美", "西条琉璃", "冲田杏梨", "雏名由奈", "明日花绮罗")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_customview)
-        view = findViewById(R.id.met)
+        viewBinding = ActivityCustomviewBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
 //        view.useFloatingLabel = true
 
 
@@ -46,10 +49,10 @@ class CustomviewActivity : AppCompatActivity() {
 //        animator.startDelay = 2000
 //        animator.start()
 
-//        var objectAnimator = ObjectAnimator.ofObject(view,"start", textTypeEvaluate(),"明日花绮罗")
-//        objectAnimator.duration = 2000
-//        objectAnimator.startDelay = 1000
-//        objectAnimator.start()
+        var objectAnimator = ObjectAnimator.ofObject(viewBinding.tvArray,"start", textTypeEvaluate(),"明日花绮罗")
+        objectAnimator.duration = 2000
+        objectAnimator.startDelay = 1000
+        objectAnimator.start()
 
     }
     inner class textTypeEvaluate : TypeEvaluator<String> {

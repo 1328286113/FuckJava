@@ -41,7 +41,7 @@ class ImageTextView(context: Context?, attrs: AttributeSet?) : View(context, att
         var verticaloffset = paint.fontSpacing
         var count: Int
         var start = 0
-        for (i in text.indices) {
+        for (i in text.indices) {  //text.indices = 0..text.length-1 = 0 until text.length-1
             var texttop = verticaloffset + fontMetrics.top
             var textbottom = verticaloffset + fontMetrics.bottom
             var maxwidth = width.toFloat()

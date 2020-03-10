@@ -5,8 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fuckjava.R
@@ -26,10 +25,8 @@ class ListActivity : AppCompatActivity() {
         rv.layoutManager = LinearLayoutManager(this)
 
         val jsonViewModel = ViewModelProvider(this@ListActivity)[NewsViewModel::class.java]
-        jsonViewModel.getData().observe(this@ListActivity, Observer<List<Data>> { datas ->
-            println("observe")
+        jsonViewModel.data.observe(this, Observer { datas ->
             listadapter = ListAdapter(datas)
-//            dataBindAdapter = DataBindAdapter()
             rv.adapter = listadapter
         })
         ItemClickSupport.addTo(rv).addOnItemClickListener(object :ItemClickSupport.OnItemClickListener{
@@ -43,9 +40,14 @@ class ListActivity : AppCompatActivity() {
                 Toast.makeText(this@ListActivity,"itemiv：$position",Toast.LENGTH_SHORT).show()
             }
         })
+        lifecycleScope.launchWhenCreated {
+            try {
 
-//        lifecycle.coroutineScope.launch {
-//
-//        }
+            }finally {
+                if(lifecycle.currentState >= Lifecycle.State.STARTED){
+
+                }
+            }
+        }
     }
 }

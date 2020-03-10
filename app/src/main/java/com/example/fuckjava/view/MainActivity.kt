@@ -11,6 +11,10 @@ import com.example.fuckjava.ParamsBean1
 import com.example.fuckjava.R
 import com.example.fuckjava.network.RetrofitManager
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
     private val TAG: String = "MainActivity"
@@ -26,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 //        KList()
 //        KSet()
 //        KMap()
-        KSequence()
+//        KSequence()
 //        getData()
 //        paramsBean1.sayHi()
 //        paramsBean1.sayHi(age = 10)
@@ -46,7 +50,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun DemoFunction(pp: String): String {
         var p1 = DemoClass.a

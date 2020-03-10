@@ -22,7 +22,7 @@ class LaunchActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.Main) {
             val bitmap = getbitmap()
-            val jsonBean = getNews()
+//            val jsonBean = getNews()
             val bit_1 = async {
                 delay(2000)
                 cropBitmap(bitmap,0,0,bitmap!!.width/2,bitmap.height/2) }
@@ -32,7 +32,7 @@ class LaunchActivity : AppCompatActivity() {
             iv.setImageBitmap(bitmap)
             iv_0_25.setImageBitmap(bit_1.await())
             iv_0_11.setImageBitmap(bit_2.await())
-            tv.setText(jsonBean?.result?.data?.get(0)?.title)
+//            tv.setText(jsonBean?.result?.data?.get(0)?.title)
         }
     }
 
@@ -44,11 +44,11 @@ class LaunchActivity : AppCompatActivity() {
         null
     }
 
-    private suspend fun getNews(): NewsBean? = withContext(Dispatchers.IO) {
-        return@withContext RetrofitManager.retrofitService.getNews(75, NewsID,"top")
+//    private suspend fun getNews(): NewsBean? = withContext(Dispatchers.IO) {
+//        return@withContext RetrofitManager.retrofitService.getNews(75, NewsID,"top")
 //        return@withContext RetrofitManager.retrofitService.getNews("http://zhouxunwang.cn/data/?id=75&key=Ub6U8YlnQo/+ipiJ94wxR2rIPgTgsJeZ/px16A&type=top")
-            .execute().body()
-    }
+//            .execute().body()
+//    }
 
     private fun cropBitmap(bitmap: Bitmap?, sX: Int, sY: Int, eX: Int, eY: Int): Bitmap =
         Bitmap.createBitmap(bitmap, sX, sY, eX, eY)

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <com.example.fuckjava.customview.d_bitmap_drawable.MaterialEditText
         android:id="@+id/met"
@@ -11,4 +11,8 @@
         android:layout_height="wrap_content"
         app:useFloatingLabel="true"
         android:hint="Username" />
+    <com.example.fuckjava.customview.c_animation.TextArrayView
+        android:id="@+id/tv_array"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>
