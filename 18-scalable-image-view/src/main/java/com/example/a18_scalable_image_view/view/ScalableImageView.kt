@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.GestureDetector
@@ -12,19 +11,27 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.OverScroller
 import androidx.core.view.GestureDetectorCompat
+import androidx.core.view.ViewCompat
+import com.example.a18_scalable_image_view.dpToPixel
 import com.example.a18_scalable_image_view.getAvatar
+import kotlin.math.max
+import kotlin.math.min
 
-class ScalableImageView(context: Context?, attrs: AttributeSet?) : View(context, attrs),
-    GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
-    var IMAGE_WIDTH = 0
+class ScalableImageView : View,
+    GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener, Runnable {
+    var IMAGE_WIDTH = dpToPixel(500f)
     var OVER_SCALE_FACTOR = 1.5f
     var big: Boolean = false
     var offsetX = 0f
     var offsetY = 0f
     var bigScale = 0f
     var smallScale = 0f
+    var maxOffsetX = 0f
+    var maxOffsetY = 0f
+    var originalOffsetX = 0f
+    var originalOffsetY = 0f
 
-    var currentScale = 0f
+    var currentScale = 1f
         set(value) {
             field = value
             invalidate()
@@ -36,42 +43,41 @@ class ScalableImageView(context: Context?, attrs: AttributeSet?) : View(context,
     lateinit var bitmap: Bitmap
     var gestureDetector = GestureDetectorCompat(context, this)
 
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+        bitmap = getAvatar(resources, IMAGE_WIDTH)
+    }
+
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        IMAGE_WIDTH = width
-        bitmap = getAvatar(resources, IMAGE_WIDTH)
-        gestureDetector.setOnDoubleTapListener(this)
-//        bigScale =
-//            if (bitmap.width / bitmap.height > width / height) height / bitmap.height * OVER_SCALE_FACTOR else width / bitmap.width * OVER_SCALE_FACTOR
-//        smallScale =
-//            (if (bitmap.width / bitmap.height > width / height) width / bitmap.width else height / bitmap.height).toFloat()
-        bigScale =
-            if (bitmap.width / width > bitmap.height / height) height / bitmap.height * OVER_SCALE_FACTOR else width / bitmap.width * OVER_SCALE_FACTOR
         smallScale =
-            (if (bitmap.width / width > bitmap.height / height) width / bitmap.width else height / bitmap.height).toFloat()
+            if (bitmap.width.toFloat() / bitmap.height > width.toFloat() / height) (width.toFloat() / bitmap.width) else (height.toFloat() / bitmap.height)
+        bigScale =
+            (if (bitmap.width.toFloat() / bitmap.height > width.toFloat() / height) (height.toFloat() / bitmap.height) else (width.toFloat() / bitmap.width)) * OVER_SCALE_FACTOR
         currentScale = smallScale
-        fixOffset()
+        originalOffsetX = (width - bitmap.width) / 2f
+        originalOffsetY = (height - bitmap.height) / 2f
+        maxOffsetX = (bitmap.width * bigScale - width) / 2
+        maxOffsetY = (bitmap.height * bigScale - height) / 2
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
         canvas.save()
-        var scaleFraction = (currentScale - smallScale) / (bigScale - smallScale)
-        canvas.translate(offsetX*scaleFraction, offsetY*scaleFraction)
+        val scaleFraction = (currentScale - smallScale) / (bigScale - smallScale)
+        canvas.translate(offsetX * scaleFraction, offsetY * scaleFraction)
         canvas.scale(currentScale, currentScale, width / 2f, height / 2f)
-        canvas.drawBitmap(bitmap, 0f, 0f, paint)
+        canvas.drawBitmap(bitmap, originalOffsetX, originalOffsetY, paint)
         canvas.restore()
     }
 
     private fun fixOffset() {
-        offsetX = ((width - bitmap.width * currentScale) / 2)
-        offsetY = ((height - bitmap.height * currentScale) / 2)
+        offsetX = max(min(offsetX, maxOffsetX), -maxOffsetX)
+        offsetY = max(min(offsetY, maxOffsetY), -maxOffsetY)
     }
 
     private fun getAnimator(): ObjectAnimator? {
         if (scaleAnimator == null) {
-            scaleAnimator = ObjectAnimator.ofFloat(this, "currentScale", 0f)
+            scaleAnimator = ObjectAnimator.ofFloat(this, "currentScale",0f)
         }
         scaleAnimator?.setFloatValues(smallScale, bigScale)
         return scaleAnimator
@@ -90,6 +96,7 @@ class ScalableImageView(context: Context?, attrs: AttributeSet?) : View(context,
     }
 
     override fun onDown(e: MotionEvent?): Boolean {  // 每次 ACTION_DOWN 事件出现的时候都会被调⽤，在这⾥返回 true 可以保证必然消费掉事件
+        TODO("Not yet implemented")
         return true
     }
 
@@ -99,7 +106,38 @@ class ScalableImageView(context: Context?, attrs: AttributeSet?) : View(context,
         velocityX: Float,
         velocityY: Float
     ): Boolean {
+        if (big) {
+            scroller.fling(
+                offsetX.toInt(),
+                offsetY.toInt(),
+                velocityX.toInt(),
+                velocityY.toInt(),
+                (-maxOffsetX).toInt(),
+                maxOffsetX.toInt(),
+                (-maxOffsetY).toInt(),
+                maxOffsetY.toInt(),
+                dpToPixel(50f).toInt(),
+                dpToPixel(50f).toInt()
+            )
+            ViewCompat.postOnAnimation(
+                this,
+                this
+            )    //让view在下一帧执行里面的run，与post(Runnable)不同，post是在当前主线程立刻执行
+        }
         return false
+    }
+
+    override fun run() {
+        refresh()
+    }
+
+    private fun refresh() {
+        if (scroller.computeScrollOffset()) {   //计算惯性滑动的距离，返回值：Boolean 判断动画是否还在进行
+            offsetX = scroller.currX.toFloat()
+            offsetY = scroller.currY.toFloat()
+            invalidate()
+            postOnAnimation(this)
+        }
     }
 
     override fun onScroll(// ⽤户滑动时被调⽤
@@ -108,6 +146,12 @@ class ScalableImageView(context: Context?, attrs: AttributeSet?) : View(context,
         distanceX: Float,// 偏移是按下时的位置 - 当前事件的位置
         distanceY: Float
     ): Boolean {
+        if (big) {
+            offsetX -= distanceX
+            offsetY -= distanceY
+            fixOffset()
+            invalidate()
+        }
         return false
     }
 
@@ -117,21 +161,23 @@ class ScalableImageView(context: Context?, attrs: AttributeSet?) : View(context,
      */
     override fun onLongPress(e: MotionEvent?) {
         TODO("Not yet implemented")
+        return
     }
 
     /**
      * ⽤户双击时被调⽤
      * 注意：第⼆次触摸到屏幕时就调⽤，⽽不是抬起时
      */
-    override fun onDoubleTap(e: MotionEvent?): Boolean {
+    override fun onDoubleTap(e: MotionEvent): Boolean {
         big = !big
         if (big) {
+            offsetX = (e.x - width / 2) * (1 - bigScale / smallScale)
+            offsetY = (e.y - height / 2) * (1 - bigScale / smallScale)
             fixOffset()
             getAnimator()?.start()
         } else {
             getAnimator()?.reverse()
         }
-        invalidate()
         return false
     }
 
@@ -150,4 +196,5 @@ class ScalableImageView(context: Context?, attrs: AttributeSet?) : View(context,
     override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
         return false
     }
+
 }

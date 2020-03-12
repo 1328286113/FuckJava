@@ -12,7 +12,7 @@ fun dpToPixel(dp: Float): Float {
     )
 }
 
-fun getAvatar(res: Resources?, width: Int): Bitmap {
+fun getAvatar(res: Resources?, width: Float): Bitmap {
     val options =
         BitmapFactory.Options()
     options.inJustDecodeBounds = true
@@ -23,7 +23,7 @@ fun getAvatar(res: Resources?, width: Int): Bitmap {
     )
     options.inJustDecodeBounds = false
     options.inDensity = options.outWidth
-    options.inTargetDensity = width
+    options.inTargetDensity = width.toInt()
     return BitmapFactory.decodeResource(
         res,
         R.drawable.avatar,
