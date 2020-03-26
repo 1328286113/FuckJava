@@ -153,7 +153,7 @@
     <androidx.constraintlayout.helper.widget.Flow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:constraint_referenced_ids="placeholder_iv1,placeholder_iv2,placeholder_iv3,placeholder_iv4,placeholder_iv5,placeholder_iv6,placeholder_iv7"
         app:flow_horizontalGap="25dp"
         app:flow_verticalGap="8dp"

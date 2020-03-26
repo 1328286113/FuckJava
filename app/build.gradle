@@ -49,9 +49,9 @@ dependencies {
     implementation dependencies.converter
     implementation dependencies.glide
     //                                       👇 依赖协程核心库
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2'
     //                                       👇 依赖当前平台所对应的平台库
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2'
     kapt "com.android.databinding:compiler:$android_plugin_version"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     //dataBinding需要的编译处理工具
@@ -59,8 +59,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
 
-    // 基本操作
+    // 基本操作 Chrome插件 抓包工具
     implementation 'com.facebook.stetho:stetho:1.5.0'
     // 网络操作--有网络操作添加
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+    // 查看gradle源码
+//    compileOnly 'com.android.tools.build:gradle:3.0.1'
 }

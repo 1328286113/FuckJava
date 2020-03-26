@@ -1,4 +1,4 @@
-package com.example.a18_scalable_image_view.view
+package com.example.a20_21_drag_nestedscroll.view
 
 import android.animation.ObjectAnimator
 import android.content.Context
@@ -7,20 +7,18 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.GestureDetector
-import android.view.GestureDetector.*
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.OverScroller
-import androidx.core.view.GestureDetectorCompat
-import androidx.core.view.ViewCompat
-import com.example.a18_scalable_image_view.dpToPixel
-import com.example.a18_scalable_image_view.getAvatar
+import androidx.core.view.*
+import com.example.a20_21_drag_nestedscroll.dpToPixel
+import com.example.a20_21_drag_nestedscroll.getAvatar
+import java.io.InputStream
 import kotlin.math.max
 import kotlin.math.min
-import android.view.GestureDetector.SimpleOnGestureListener as SimpleOnGestureListener1
 
-class ScalableImageView : View {
+class NestedScalableImageView : View, NestedScrollingChild3 {
     var IMAGE_WIDTH = dpToPixel(500f)
     var OVER_SCALE_FACTOR = 1.5f
     var big: Boolean = false
@@ -50,8 +48,12 @@ class ScalableImageView : View {
     var myScaleGestureDetector = ScaleGestureDetector(context, myScaleGestureListener)
     var myAnimatorRunnable: MyRunner = MyRunner()
 
+    var childHelper:NestedScrollingChildHelper
+
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
         bitmap = getAvatar(resources, IMAGE_WIDTH)
+        childHelper = NestedScrollingChildHelper(this)
+        childHelper.isNestedScrollingEnabled = true
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -77,9 +79,16 @@ class ScalableImageView : View {
         canvas.restore()
     }
 
-    private fun fixOffset() {
+    private fun fixOffset() :Int{
         offsetX = max(min(offsetX, maxOffsetX), -maxOffsetX)
+        var result = 0
+        if(offsetY < -maxOffsetY){
+            result = (-maxOffsetY-offsetY).toInt()
+        }else if(offsetY > maxOffsetY){
+            result = (maxOffsetY - offsetY).toInt()
+        }
         offsetY = max(min(offsetY, maxOffsetY), -maxOffsetY)
+        return result
     }
 
     private fun getAnimator(): ObjectAnimator? {
@@ -94,6 +103,7 @@ class ScalableImageView : View {
         var result = myScaleGestureDetector.onTouchEvent(event)
         if (!myScaleGestureDetector.isInProgress) {    //判断当前是否正在缩放
             result = gestureDetector.onTouchEvent(event)   //代理了默认的触摸监听器
+            childHelper.startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL)
         }
         return result
     }
@@ -126,24 +136,24 @@ class ScalableImageView : View {
             velocityX: Float,
             velocityY: Float
         ): Boolean {
-            if (big) {
-                scroller.fling(
-                    offsetX.toInt(),
-                    offsetY.toInt(),
-                    velocityX.toInt(),
-                    velocityY.toInt(),
-                    (-maxOffsetX).toInt(),
-                    maxOffsetX.toInt(),
-                    (-maxOffsetY).toInt(),
-                    maxOffsetY.toInt(),
-                    dpToPixel(50f).toInt(),
-                    dpToPixel(50f).toInt()
-                )
-                ViewCompat.postOnAnimation(
-                    this@ScalableImageView,
-                    myAnimatorRunnable
-                )    //让view在下一帧执行里面的run，与post(Runnable)不同，post是在当前主线程立刻执行
-            }
+//            if (big) {
+//                scroller.fling(
+//                    offsetX.toInt(),
+//                    offsetY.toInt(),
+//                    velocityX.toInt(),
+//                    velocityY.toInt(),
+//                    (-maxOffsetX).toInt(),
+//                    maxOffsetX.toInt(),
+//                    (-maxOffsetY).toInt(),
+//                    maxOffsetY.toInt(),
+//                    dpToPixel(50f).toInt(),
+//                    dpToPixel(50f).toInt()
+//                )
+//                ViewCompat.postOnAnimation(
+//                    this@NestedScalableImageView,
+//                    myAnimatorRunnable
+//                )    //让view在下一帧执行里面的run，与post(Runnable)不同，post是在当前主线程立刻执行
+//            }
             return false
         }
 
@@ -156,8 +166,12 @@ class ScalableImageView : View {
             if (big) {
                 offsetX -= distanceX
                 offsetY -= distanceY
-                fixOffset()
-                invalidate()
+                var unconsumed = fixOffset()
+                if(unconsumed != 0){
+                    childHelper.dispatchNestedScroll(0,0,0,unconsumed,null)
+                }else{
+                    invalidate()
+                }
             }
             return false
         }
@@ -225,5 +239,27 @@ class ScalableImageView : View {
             invalidate()
             return false
         }
+    }
+
+    override fun dispatchNestedScroll(dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int, offsetInWindow: IntArray?, type: Int, consumed: IntArray) {}
+
+    override fun dispatchNestedScroll(dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int, offsetInWindow: IntArray?, type: Int): Boolean {
+        return childHelper.dispatchNestedScroll(dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, offsetInWindow, type)
+    }
+
+    override fun dispatchNestedPreScroll(dx: Int, dy: Int, consumed: IntArray?, offsetInWindow: IntArray?, type: Int): Boolean {
+        return childHelper.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow, type)
+    }
+
+    override fun stopNestedScroll(type: Int) {
+        return stopNestedScroll(type)
+    }
+
+    override fun hasNestedScrollingParent(type: Int): Boolean {
+        return childHelper.hasNestedScrollingParent(type)
+    }
+
+    override fun startNestedScroll(axes: Int, type: Int): Boolean {
+        return childHelper.startNestedScroll(axes, type)
     }
 }
