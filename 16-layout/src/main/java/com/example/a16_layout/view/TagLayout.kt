@@ -3,6 +3,7 @@ package com.example.a16_layout.view
 import android.content.Context
 import android.graphics.Rect
 import android.util.AttributeSet
+import android.view.View
 import android.view.ViewGroup
 import kotlin.math.max
 
@@ -43,9 +44,10 @@ class TagLayout(context: Context?, attrs: AttributeSet?) : ViewGroup(context, at
             lineWidthUsed += childview.measuredWidth
             widthUsed = max(widthUsed,lineWidthUsed)
             lineHeightUsed = max(lineHeightUsed, childview.measuredHeight)
+//            childview.measure(widthMeasureSpec,heightMeasureSpec)
         }
         var width = widthUsed
-        var height = heightUsed
+        var height = heightUsed+lineHeightUsed
         setMeasuredDimension(width, height)
     }
 
@@ -63,5 +65,15 @@ class TagLayout(context: Context?, attrs: AttributeSet?) : ViewGroup(context, at
 
     override fun generateLayoutParams(attrs: AttributeSet?): LayoutParams {
         return MarginLayoutParams(context, attrs)
+    }
+
+    override fun addView(child: View?, index: Int) {
+        requireNotNull(child) { "Cannot add a null child view to a ViewGroup" }
+        var params = layoutParams
+        if (params == null) {
+            params = generateDefaultLayoutParams()
+            requireNotNull(params) { "generateDefaultLayoutParams() cannot return null" }
+        }
+        addView(child, index, params)
     }
 }
