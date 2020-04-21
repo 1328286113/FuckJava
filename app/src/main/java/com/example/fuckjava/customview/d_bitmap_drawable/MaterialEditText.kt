@@ -36,6 +36,9 @@ class MaterialEditText : AppCompatEditText {
         ObjectAnimator.ofFloat(this@MaterialEditText, "floatingLabelFraction", 1f)
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        /*attrs拿到了这个view在xml里面的所有属性;
+        R.styleable.MaterialEditText本质是个数组，所以可以写成new Int[]{}，它过滤了attrs里面的属性;
+        R.styleable.MaterialEditText_useFloatingLabel本质是过滤之后的数组的下标*/
         var typeArray = context.obtainStyledAttributes(attrs, R.styleable.MaterialEditText)
         useFloatingLabel = typeArray.getBoolean(R.styleable.MaterialEditText_useFloatingLabel,true)
         typeArray.recycle()

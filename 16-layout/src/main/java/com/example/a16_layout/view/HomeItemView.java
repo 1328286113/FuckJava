@@ -1,6 +1,7 @@
 package com.example.a16_layout.view;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -39,12 +40,16 @@ public class HomeItemView extends LinearLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 //        setMeasuredDimension(resolveSizeAndState(WINDOW_WIDTH/5,widthMeasureSpec,0),
 //                resolveSizeAndState(WINDOW_WIDTH/5,heightMeasureSpec,0));
-        setMeasuredDimension(WINDOW_WIDTH/5,WINDOW_WIDTH/5);
+        setMeasuredDimension(WINDOW_WIDTH/8,WINDOW_WIDTH/5);
 
         for (int i = 0; i < getChildCount(); i++) {
-            getChildAt(i).measure(widthMeasureSpec, heightMeasureSpec);
+            getChildAt(i).measure(WINDOW_WIDTH/5, heightMeasureSpec);
         }
     }
 
-
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        Log.e("HomeItemView","width:"+getWidth()+"\nheight:"+getHeight());
+    }
 }

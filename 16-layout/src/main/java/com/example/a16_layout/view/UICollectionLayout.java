@@ -40,7 +40,7 @@ public class UICollectionLayout extends ViewGroup {
         int childWidth = WINDOW_WIDTH/LINECOUNT;
         for (int i = 0; i < getChildCount(); i++) {
             View childview = getChildAt(i);
-            measureChildWithMargins(childview, childWidth, 0, heightMeasureSpec, heightUsed);
+            measureChildWithMargins(childview, widthMeasureSpec, 0, heightMeasureSpec, heightUsed);
             Rect childbound;
             if (childbounds.size() <= i) {
                 childbound = new Rect();
@@ -60,7 +60,7 @@ public class UICollectionLayout extends ViewGroup {
                         (i + 1) % (LINEMAX * LINECOUNT) / LINEMAX * childWidth;
             }
             childbound.set(linewidthUsed, lineheightUsed,
-                    linewidthUsed + childWidth, lineheightUsed + childview.getMeasuredHeight());
+                    linewidthUsed + childview.getMeasuredWidth(), lineheightUsed + childview.getMeasuredHeight());
 //            childview.measure(childWidth, heightMeasureSpec);
         }
         setMeasuredDimension(widthUsed, heightUsed);
