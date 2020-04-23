@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this, TaglayoutActivity::class.java))
             }
             R.id.btn_uicollection -> {
-                startActivity(intent.setClass(this,UiCollectionActivity::class.java))
+                startActivity(Intent(this,UiCollectionActivity::class.java))
             }
         }
     }

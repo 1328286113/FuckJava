@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.a16_layout.view.UICollectionLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/uicollection"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#ff0000">
+    android:layout_height="wrap_content">
 
-</com.example.a16_layout.view.UICollectionLayout>
+<!--    <com.example.a16_layout.view.UICollectionLayout-->
+<!--        android:id="@+id/uicollection"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="#ff0000" />-->
+    <GridView
+        android:id="@+id/uicollection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ff0000"
+        android:numColumns="2"/>
+<!--    <GridLayout-->
+<!--        android:id="@+id/uicollection"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="#ff0000"-->
+<!--        android:columnCount="5"/>-->
+</LinearLayout>

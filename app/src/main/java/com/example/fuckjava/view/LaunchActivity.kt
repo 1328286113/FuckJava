@@ -20,20 +20,20 @@ class LaunchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch)
 
-        GlobalScope.launch(Dispatchers.Main) {
-            val bitmap = getbitmap()
-//            val jsonBean = getNews()
-            val bit_1 = async {
-                delay(2000)
-                cropBitmap(bitmap,0,0,bitmap!!.width/2,bitmap.height/2) }
-            val bit_2 = async {
-                delay(4000)
-                cropBitmap(bitmap,bitmap!!.width/3*2,bitmap.height/3*2,bitmap.width/3,bitmap.height/3) }
-            iv.setImageBitmap(bitmap)
-            iv_0_25.setImageBitmap(bit_1.await())
-            iv_0_11.setImageBitmap(bit_2.await())
-//            tv.setText(jsonBean?.result?.data?.get(0)?.title)
-        }
+//        GlobalScope.launch(Dispatchers.Main) {
+//            val bitmap = getbitmap()
+////            val jsonBean = getNews()
+//            val bit_1 = async {
+//                delay(2000)
+//                cropBitmap(bitmap,0,0,bitmap!!.width/2,bitmap.height/2) }
+//            val bit_2 = async {
+//                delay(4000)
+//                cropBitmap(bitmap,bitmap!!.width/3*2,bitmap.height/3*2,bitmap.width/3,bitmap.height/3) }
+//            iv.setImageBitmap(bitmap)
+//            iv_0_25.setImageBitmap(bit_1.await())
+//            iv_0_11.setImageBitmap(bit_2.await())
+////            tv.setText(jsonBean?.result?.data?.get(0)?.title)
+//        }
     }
 
     private suspend fun getbitmap(): Bitmap? = withContext(Dispatchers.IO) {

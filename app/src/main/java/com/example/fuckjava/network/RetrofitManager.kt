@@ -19,7 +19,7 @@ object RetrofitManager {
      */
     private val CONNECT_TIMEOUT: Long = 8_000
     private val baseUrl = "http://zhouxunwang.cn/"
-    private val mHttpClientBuilder = OkHttpClient.Builder()
+    private val mHttpClient = OkHttpClient.Builder()
         .connectTimeout(CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
     private var mRetrofitBuilder: Retrofit.Builder? = null
     val retrofitService: HttpApi
@@ -34,7 +34,7 @@ object RetrofitManager {
                     )
                     .baseUrl(baseUrl)
                     .client(
-                        mHttpClientBuilder
+                        mHttpClient
                             .connectTimeout(15, TimeUnit.SECONDS)
                             .writeTimeout(15, TimeUnit.SECONDS)
                             .readTimeout(10, TimeUnit.SECONDS)

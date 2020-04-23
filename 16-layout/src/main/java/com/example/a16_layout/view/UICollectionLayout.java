@@ -37,10 +37,13 @@ public class UICollectionLayout extends ViewGroup {
         int widthUsed = 0;
         int lineheightUsed = 0;
         int linewidthUsed = 0;
-        int childWidth = WINDOW_WIDTH/LINECOUNT;
+        int childWidth = WINDOW_WIDTH / LINECOUNT;
         for (int i = 0; i < getChildCount(); i++) {
             View childview = getChildAt(i);
-            measureChildWithMargins(childview, widthMeasureSpec, 0, heightMeasureSpec, heightUsed);
+            //widthMeasureSpec:父view限制的宽度，widthUsed:已用的宽度
+//            measureChildWithMargins(childview, widthMeasureSpec, 0, heightMeasureSpec, heightUsed);
+//            measureChildren(MeasureSpec.makeMeasureSpec(childWidth,MeasureSpec.EXACTLY),heightMeasureSpec);
+            measureChild(childview,MeasureSpec.makeMeasureSpec(childWidth,MeasureSpec.EXACTLY),heightMeasureSpec);
             Rect childbound;
             if (childbounds.size() <= i) {
                 childbound = new Rect();
@@ -56,12 +59,12 @@ public class UICollectionLayout extends ViewGroup {
             } else {
                 linewidthUsed = i % (LINEMAX * LINECOUNT) / LINEMAX * childWidth + WINDOW_WIDTH;
                 lineheightUsed = i % (LINEMAX * LINECOUNT) % LINEMAX * childview.getMeasuredHeight();
-                widthUsed = (i + 1) / (LINEMAX * LINECOUNT) * WINDOW_WIDTH +
-                        (i + 1) % (LINEMAX * LINECOUNT) / LINEMAX * childWidth;
+                widthUsed = (i + 1) / (LINEMAX * LINECOUNT) * CVUtilsKt.getWINDOW_WIDTH() +
+                        ((i + 1 - LINEMAX * LINECOUNT) / LINEMAX + (i + 1 - LINEMAX * LINECOUNT) % LINEMAX) * childWidth;
             }
             childbound.set(linewidthUsed, lineheightUsed,
                     linewidthUsed + childview.getMeasuredWidth(), lineheightUsed + childview.getMeasuredHeight());
-//            childview.measure(childWidth, heightMeasureSpec);
+//            childview.measure(MeasureSpec.makeMeasureSpec(childWidth,MeasureSpec.EXACTLY),heightMeasureSpec);
         }
         setMeasuredDimension(widthUsed, heightUsed);
     }
