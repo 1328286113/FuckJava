@@ -21,17 +21,15 @@
         <activity android:name=".view.LoginActivity">
         </activity>
         <activity android:name=".view.LaunchActivity">
-        </activity>
-        <activity android:name=".view.ListActivity">
-        </activity>
-        <activity android:name=".view.CustomviewActivity">
-        </activity>
-        <activity android:name=".CoroutineActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".view.ListActivity">
+        </activity>
+        <activity android:name=".view.CustomviewActivity">
         </activity>
     </application>
 

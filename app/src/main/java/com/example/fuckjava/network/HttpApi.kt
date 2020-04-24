@@ -15,7 +15,7 @@ interface HttpApi {
     fun download(@Url url: String): Call<ResponseBody>
 
     @GET("/data/")
-    fun getNews(@Query("id") id: Int, @Query("key") key: String, @Query("type") type: String): Call<NewsBean>
+    suspend fun getNews(@Query("id") id: Int, @Query("key") key: String, @Query("type") type: String): NewsBean
 
     @GET("/data/")
     fun searchFilm(@Query("id") id: Int, @Query("key") key: String, @Query("q") q: String):Call<FilmBean>

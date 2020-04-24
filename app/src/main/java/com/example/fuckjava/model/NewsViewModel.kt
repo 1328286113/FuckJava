@@ -37,10 +37,9 @@ class NewsViewModel : ViewModel() {
 //                e.printStackTrace()
 //            }
             ResponseHandlerCoroutine.loadData<NewsBean> {
-                load {
-                    RetrofitManager.retrofitService.getNews(75, NewsID, "top")
-                    .execute().body()
-                }
+//                load {
+//                    RetrofitManager.retrofitService.getNews(75, NewsID, "top")
+//                }
                 onNext {
                     data.value = it.result.data
                 }
@@ -51,11 +50,11 @@ class NewsViewModel : ViewModel() {
         }
     }
 
-    private suspend fun getNews(): NewsBean? = withContext(Dispatchers.IO) {
-
-        return@withContext RetrofitManager.retrofitService.getNews(75, NewsID, "top")
-            .execute().body()
-    }
+//    private suspend fun getNews(): NewsBean? = withContext(Dispatchers.IO) {
+//
+//        return@withContext RetrofitManager.retrofitService.getNews(75, NewsID, "top")
+//            .execute().body()
+//    }
 
 
     val handler = CoroutineExceptionHandler { _, exception ->

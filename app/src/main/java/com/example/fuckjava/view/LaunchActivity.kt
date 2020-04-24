@@ -34,15 +34,26 @@ class LaunchActivity : AppCompatActivity() {
 //            iv_0_11.setImageBitmap(bit_2.await())
 ////            tv.setText(jsonBean?.result?.data?.get(0)?.title)
 //        }
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val newsBean1 = async {
+                RetrofitManager.retrofitService.getNews(75, NewsID, "top")
+            }
+            val newsBean2 = async {
+                RetrofitManager.retrofitService.getNews(75, NewsID, "top")
+            }
+            val same = newsBean1.await().error_code == newsBean2.await().error_code
+            tv.text = "$same"
+        }
     }
 
-    private suspend fun getbitmap(): Bitmap? = withContext(Dispatchers.IO) {
-        val responseBody = RetrofitManager.retrofitService.download(url).execute()
-        if (responseBody.isSuccessful) {
-            return@withContext BitmapFactory.decodeStream(responseBody.body()?.byteStream())
-        }
-        null
-    }
+//    private suspend fun getbitmap(): Bitmap? = withContext(Dispatchers.IO) {
+//        val responseBody = RetrofitManager.retrofitService.download(url)
+//        if (responseBody.isSuccessful) {
+//            return@withContext BitmapFactory.decodeStream(responseBody.body()?.byteStream())
+//        }
+//        null
+//    }
 
 //    private suspend fun getNews(): NewsBean? = withContext(Dispatchers.IO) {
 //        return@withContext RetrofitManager.retrofitService.getNews(75, NewsID,"top")

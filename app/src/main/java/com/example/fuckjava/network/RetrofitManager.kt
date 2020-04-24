@@ -27,10 +27,10 @@ object RetrofitManager {
             if (mRetrofitBuilder == null) {
                 mRetrofitBuilder = Retrofit.Builder()
                     .addConverterFactory(
-                        JsonAndStringConverters.MulTypeConverterFactory(
-                            GsonConverterFactory.create(),
-                            StringConvertFactory.create()
-                        )
+//                        JsonAndStringConverters.MulTypeConverterFactory(
+                            GsonConverterFactory.create()
+//                            StringConvertFactory.create()
+//                        )
                     )
                     .baseUrl(baseUrl)
                     .client(

@@ -35,6 +35,16 @@ public class HomeItemView extends LinearLayout {
         tv.setText("卡卡罗特");
     }
 
+    /**
+     * 只要这个layout不是滑动的重写这个方法返回false，能提高 ACTION_DOWN 的反应；
+     * 因为 View 在处理 ACTION_DOWN 的时候会判断是否在滑动控件内，如果在 就会延迟处理100ms，主要是为了区分用户接下来是在滑动还是点击
+     * @return
+     */
+    @Override
+    public boolean shouldDelayChildPressedState() {
+        return false;
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

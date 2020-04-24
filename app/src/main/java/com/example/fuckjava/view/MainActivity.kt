@@ -51,6 +51,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    var mclick = View.OnClickListener{
+        when(it.id){
+
+        }
+    }
+
     private fun DemoFunction(pp: String): String {
         var p1 = DemoClass.a
         var p2 = DemoClass.A.a
