@@ -1,5 +1,6 @@
 package com.example.fuckjava.network
 
+import com.example.fuckjava.network.converter.BitmapCovertFactory
 import com.example.fuckjava.network.converter.JsonAndStringConverters
 import com.example.fuckjava.network.converter.StringConvertFactory
 import com.facebook.stetho.okhttp3.StethoInterceptor
@@ -26,11 +27,12 @@ object RetrofitManager {
         get() {
             if (mRetrofitBuilder == null) {
                 mRetrofitBuilder = Retrofit.Builder()
+                    .addConverterFactory(BitmapCovertFactory.create())
                     .addConverterFactory(
-//                        JsonAndStringConverters.MulTypeConverterFactory(
-                            GsonConverterFactory.create()
-//                            StringConvertFactory.create()
-//                        )
+                        JsonAndStringConverters.MulTypeConverterFactory(
+                            GsonConverterFactory.create(),
+                            StringConvertFactory.create()
+                        )
                     )
                     .baseUrl(baseUrl)
                     .client(

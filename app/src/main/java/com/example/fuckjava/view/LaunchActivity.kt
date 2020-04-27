@@ -2,7 +2,10 @@ package com.example.fuckjava.view
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fuckjava.NewsID
 import com.example.fuckjava.R
@@ -16,6 +19,7 @@ class LaunchActivity : AppCompatActivity() {
     val url: String =
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1579422688577&di=e22644b1cada485c3abe9011358993a9&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farchive%2F97e8249a2c51e4df2f75bb696db6c9a71ec543a9.jpg"
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch)
@@ -36,14 +40,20 @@ class LaunchActivity : AppCompatActivity() {
 //        }
 
         GlobalScope.launch(Dispatchers.Main) {
-            val newsBean1 = async {
-                RetrofitManager.retrofitService.getNews(75, NewsID, "top")
+            try {
+                val newsBean1 = async {
+                    RetrofitManager.retrofitService.getNews(75, NewsID, "top")
+                }
+                val newsBean2 = async {
+                    RetrofitManager.retrofitService.getNews(75, NewsID, "top")
+                }
+                val bitmap = RetrofitManager.retrofitService.download(url)
+                iv.setImageBitmap(bitmap)
+                val same = newsBean1.await().error_code == newsBean2.await().error_code
+                tv.text = "$same"
+            } catch (e: Exception) {
+
             }
-            val newsBean2 = async {
-                RetrofitManager.retrofitService.getNews(75, NewsID, "top")
-            }
-            val same = newsBean1.await().error_code == newsBean2.await().error_code
-            tv.text = "$same"
         }
     }
 
