@@ -7,7 +7,7 @@
     tools:context=".MainActivity"
     android:background="#000000">
 
-    <com.example.a18_scalable_image_view.view.ScalableImageView
+    <com.example.a18_scalable_image_view.view.ScalableImageView1
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

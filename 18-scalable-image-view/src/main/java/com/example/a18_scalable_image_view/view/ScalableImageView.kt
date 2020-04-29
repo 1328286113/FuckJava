@@ -44,7 +44,7 @@ class ScalableImageView : View {
     var paint = Paint()
     var bitmap: Bitmap
 
-    var myGestureDetectorListener = MyGestureDetector()
+    private var myGestureDetectorListener = MyGestureDetector()
     var gestureDetector = GestureDetectorCompat(context, myGestureDetectorListener)
     var myScaleGestureListener = MyScaleDestureListener()
     var myScaleGestureDetector = ScaleGestureDetector(context, myScaleGestureListener)
@@ -107,7 +107,7 @@ class ScalableImageView : View {
         }
     }
 
-    inner class MyGestureDetector : GestureDetector.SimpleOnGestureListener() {
+    private inner class MyGestureDetector : GestureDetector.SimpleOnGestureListener() {
         override fun onShowPress(e: MotionEvent?) {    // ⽤户按下 100ms 不松⼿后会被调⽤，⽤于标记「可以显示按下状态了」
 
         }
