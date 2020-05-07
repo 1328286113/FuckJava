@@ -1,10 +1,12 @@
 package com.example.a18_scalable_image_view.view
 
+import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.PointF
 import android.util.AttributeSet
 import android.util.Log
 import android.view.GestureDetector
@@ -12,6 +14,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.animation.TranslateAnimation
 import android.widget.OverScroller
+import androidx.core.animation.addListener
 import androidx.core.view.GestureDetectorCompat
 import com.example.a18_scalable_image_view.dpToPixel
 import com.example.a18_scalable_image_view.getAvatar
@@ -34,7 +37,9 @@ class ScalableImageView1(context: Context?, attrs: AttributeSet?) : View(context
     var orginOffsetY = 0f
     var overOffsetX = dpToPixel(50f)
     var overOffsetY = dpToPixel(50f)
+    var outPointF = PointF()
     var isOut = false
+    var ACTION_UP = false
     var currentScale = 1f
         set(value) {
             field = value
@@ -72,8 +77,11 @@ class ScalableImageView1(context: Context?, attrs: AttributeSet?) : View(context
         super.onDraw(canvas)
         var scaleFraction = (currentScale - smallScale) / (bigScale - smallScale)
         canvas.save()
-        if (big && isOut) {
-            canvas.translate(offsetX * transFraction, offsetY * transFraction)
+        if (big && isOut && ACTION_UP) {
+            canvas.translate(
+                offsetX + (outPointF.x - offsetX) * transFraction,
+                offsetY + (outPointF.y - offsetY) * transFraction
+            )
         } else {
             canvas.translate(offsetX * scaleFraction, offsetY * scaleFraction)
         }
@@ -83,23 +91,25 @@ class ScalableImageView1(context: Context?, attrs: AttributeSet?) : View(context
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        var name = ""
-        when (event.actionMasked) {
-            MotionEvent.ACTION_UP -> name = "ACTION_UP"
-            MotionEvent.ACTION_POINTER_UP -> name = "ACTION_POINTER_UP"
-        }
-        Log.i("MontionEvent:", name)
+
         when (event.actionMasked) {
             MotionEvent.ACTION_UP -> {
                 Log.i("MontionEvent:", "in")
                 if (big && isOut) {
+                    outPointF.x = offsetX
+                    outPointF.y = offsetY
                     fixOffset()
-                    getTransAnimator()?.start()
-                    isOut = false
+                    getTransAnimator()?.setDuration(300)?.start()
+                    ACTION_UP = true
                 }
             }
         }
-        return gestureDetector.onTouchEvent(event)
+
+        return if (isOut && event.actionMasked == MotionEvent.ACTION_UP) {
+            true
+        } else {
+            gestureDetector.onTouchEvent(event)
+        }
     }
 
     private fun getScaleAnimator(): ObjectAnimator? {
@@ -112,8 +122,24 @@ class ScalableImageView1(context: Context?, attrs: AttributeSet?) : View(context
 
     private fun getTransAnimator(): ObjectAnimator? {
         if (transAnimator == null) {
-            transAnimator = ObjectAnimator.ofFloat(this, "transFraction", 0f, 1f)
+            transAnimator = ObjectAnimator.ofFloat(this, "transFraction", 1f, 0f)
+
         }
+        transAnimator?.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationRepeat(animation: Animator?) {
+            }
+
+            override fun onAnimationEnd(animation: Animator?) {
+                isOut = false
+            }
+
+            override fun onAnimationCancel(animation: Animator?) {
+            }
+
+            override fun onAnimationStart(animation: Animator?) {
+            }
+
+        })
         return transAnimator
     }
 
