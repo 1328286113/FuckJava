@@ -4,15 +4,15 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
 
-class LoginBean: BaseObservable{
-    var name:String = ""
+class LoginBean(name: String, pwd: String) : BaseObservable() {
+    var name:String = name
         @Bindable
         get() = field
         set(value) {
             field = value
             notifyPropertyChanged(BR.name)
         }
-    var pwd:String = ""
+    var pwd:String = pwd
         @Bindable
         get() = field
         set(value) {
@@ -20,8 +20,4 @@ class LoginBean: BaseObservable{
             notifyPropertyChanged(BR.pwd)
         }
 
-    constructor(name: String, pwd: String) : super() {
-        this.name = name
-        this.pwd = pwd
-    }
 }

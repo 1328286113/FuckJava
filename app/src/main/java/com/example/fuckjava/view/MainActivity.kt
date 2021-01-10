@@ -1,27 +1,27 @@
 package com.example.fuckjava.view
 
+import android.app.Activity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
-import androidx.appcompat.app.AppCompatActivity
 import com.example.fuckjava.DemoClass
+import com.example.fuckjava.ParamsBean
 import com.example.fuckjava.ParamsBean1
 import com.example.fuckjava.R
 import com.example.fuckjava.network.RetrofitManager
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlin.concurrent.thread
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : Activity() {
     private val TAG: String = "MainActivity"
     var democlass: DemoClass =
         DemoClass()
     var paramsBean1: ParamsBean1 =
         ParamsBean1("普京大帝")
+    var paramsBean = ParamsBean()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -147,5 +147,12 @@ class MainActivity : AppCompatActivity() {
         }
         validate(name)
         validate(pwd)
+        MethodA { print("xixi") }
     }
+
+    inline fun MethodA(MethodB:() -> Unit){
+        print("haha")
+        MethodB()
+    }
+
 }

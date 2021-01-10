@@ -15,4 +15,7 @@
         android:id="@+id/tv_array"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+<!--    <com.example.fuckjava.customview.b_text_and_trans.CameraView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"/>-->
 </LinearLayout>

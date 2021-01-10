@@ -1,29 +1,32 @@
 package com.example.fuckjava.view
 
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions.bitmapTransform
 import com.example.fuckjava.NewsID
 import com.example.fuckjava.R
-import com.example.fuckjava.josnbean.NewsBean
 import com.example.fuckjava.network.RetrofitManager
 import kotlinx.android.synthetic.main.activity_launch.*
 import kotlinx.coroutines.*
+
 
 class LaunchActivity : AppCompatActivity() {
 
     val url: String =
         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1579422688577&di=e22644b1cada485c3abe9011358993a9&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farchive%2F97e8249a2c51e4df2f75bb696db6c9a71ec543a9.jpg"
-
+    val scope = MainScope()
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_launch)
-
+        Glide.with(this)
+            .load(url)
+//            .apply(bitmapTransform())
+            .into(iv)
 //        GlobalScope.launch(Dispatchers.Main) {
 //            val bitmap = getbitmap()
 ////            val jsonBean = getNews()
@@ -38,7 +41,6 @@ class LaunchActivity : AppCompatActivity() {
 //            iv_0_11.setImageBitmap(bit_2.await())
 ////            tv.setText(jsonBean?.result?.data?.get(0)?.title)
 //        }
-
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val newsBean1 = async {

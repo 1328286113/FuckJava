@@ -1,4 +1,10 @@
 package com.example.fuckjava.model
 
-sealed class BaseViewModel {
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+
+class BaseViewModel :ViewModel(){
+    val currentName: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
 }

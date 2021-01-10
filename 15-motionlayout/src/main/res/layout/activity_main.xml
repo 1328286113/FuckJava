@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Button
+        android:id="@+id/btn_sim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="simple"
+        android:onClick="onClick"/>
+    <Button
+        android:id="@+id/btn_sim1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="simple1"
+        android:onClick="onClick"/>
+    <Button
+        android:id="@+id/btn_film"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="film"
+        android:onClick="onClick"/>
+    <Button
+        android:id="@+id/btn_you"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="youtube"
+        android:onClick="onClick"/>
+</LinearLayout>

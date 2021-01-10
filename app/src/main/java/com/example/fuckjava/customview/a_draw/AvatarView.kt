@@ -33,6 +33,7 @@ class AvatarView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
             (width / 2).toFloat() + WIDTH / 2,
             (height / 2).toFloat() + WIDTH / 2
         )
+        postInvalidate()
     }
 
     override fun onDraw(canvas: Canvas) {

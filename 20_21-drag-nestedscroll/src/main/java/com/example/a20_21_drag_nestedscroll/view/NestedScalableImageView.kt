@@ -11,10 +11,12 @@ import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.OverScroller
-import androidx.core.view.*
+import androidx.core.view.GestureDetectorCompat
+import androidx.core.view.NestedScrollingChild3
+import androidx.core.view.NestedScrollingChildHelper
+import androidx.core.view.ViewCompat
 import com.example.a20_21_drag_nestedscroll.dpToPixel
 import com.example.a20_21_drag_nestedscroll.getAvatar
-import java.io.InputStream
 import kotlin.math.max
 import kotlin.math.min
 

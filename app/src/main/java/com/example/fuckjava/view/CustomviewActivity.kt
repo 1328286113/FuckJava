@@ -9,7 +9,7 @@ import com.example.fuckjava.customview.d_bitmap_drawable.MaterialEditText
 import com.example.fuckjava.databinding.ActivityCustomviewBinding
 
 class CustomviewActivity : AppCompatActivity() {
-    lateinit var viewBinding :ActivityCustomviewBinding
+    lateinit var    viewBinding :ActivityCustomviewBinding
 
     var personages: Array<String> = arrayOf("泷泽萝拉", "樱井步", "小川阿佐美", "西条琉璃", "冲田杏梨", "雏名由奈", "明日花绮罗")
 

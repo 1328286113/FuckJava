@@ -6,11 +6,8 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.view.GestureDetector
-import android.view.GestureDetector.*
-import android.view.MotionEvent
-import android.view.ScaleGestureDetector
-import android.view.View
+import android.util.Log
+import android.view.*
 import android.widget.OverScroller
 import androidx.core.view.GestureDetectorCompat
 import androidx.core.view.ViewCompat
@@ -18,7 +15,6 @@ import com.example.a18_scalable_image_view.dpToPixel
 import com.example.a18_scalable_image_view.getAvatar
 import kotlin.math.max
 import kotlin.math.min
-import android.view.GestureDetector.SimpleOnGestureListener as SimpleOnGestureListener1
 
 class ScalableImageView : View {
     var IMAGE_WIDTH = dpToPixel(500f)
@@ -109,14 +105,16 @@ class ScalableImageView : View {
 
     private inner class MyGestureDetector : GestureDetector.SimpleOnGestureListener() {
         override fun onShowPress(e: MotionEvent?) {    // ⽤户按下 100ms 不松⼿后会被调⽤，⽤于标记「可以显示按下状态了」
-
+            Log.i("gesture", "onShowPress")
         }
 
         override fun onSingleTapUp(e: MotionEvent?): Boolean {  // ⽤户单击时被调⽤(⽀持⻓按时⻓按后松⼿不会调⽤、双击的第⼆下时不会被调⽤)
+            Log.i("gesture", "onSingleTapUp")
             return false
         }
 
         override fun onDown(e: MotionEvent?): Boolean {  // 每次 ACTION_DOWN 事件出现的时候都会被调⽤，在这⾥返回 true 可以保证必然消费掉事件
+            Log.i("gesture", "onDown")
             return true
         }
 
@@ -167,6 +165,7 @@ class ScalableImageView : View {
          * 这个 500ms 在 GestureDetectorCompat 中变成了 600ms
          */
         override fun onLongPress(e: MotionEvent?) {
+            Log.i("gesture", "onLongPress")
             return
         }
 
@@ -200,6 +199,7 @@ class ScalableImageView : View {
          * 和 onSingltTapUp() 的区别在于，⽤户的⼀次点击不会⽴即调⽤这个⽅法，⽽是在⼀定时间后（300ms），确认⽤户没有进⾏双击，这个⽅法才会被调⽤
          */
         override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
+            Log.i("gesture", "onSingleTapConfirme")
             return false
         }
     }

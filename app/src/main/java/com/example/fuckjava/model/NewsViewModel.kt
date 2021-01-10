@@ -1,22 +1,22 @@
 package com.example.fuckjava.model
 
-import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.util.LogTime
 import com.example.fuckjava.NewsID
 import com.example.fuckjava.josnbean.Data
 import com.example.fuckjava.josnbean.NewsBean
+import com.example.fuckjava.josnbean.jsonData
 import com.example.fuckjava.network.RetrofitManager
-import com.example.fuckjava.util.ResponseHandlerCoroutine
-import kotlinx.coroutines.*
-import java.util.logging.LogManager
-import javax.security.auth.login.LoginException
+import com.example.fuckjava.util.GsonUtil
+import com.example.fuckjava.util.TextUtil
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class NewsViewModel : ViewModel() {
+
     val data: MutableLiveData<List<Data>> by lazy {
         MutableLiveData<List<Data>>().also {
             loadData()
@@ -31,22 +31,24 @@ class NewsViewModel : ViewModel() {
          * 例如，如果要为布局计算某些数据，则应将工作范围限定至 ViewModel，以便在 ViewModel 清除后，系统会自动取消工作以避免消耗资源。*/
         viewModelScope.launch(Dispatchers.Main) {
             println("launch")
-//            try {
-//                data.value = getNews()?.result?.data
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-            ResponseHandlerCoroutine.loadData<NewsBean> {
+            try {
+                data.value = RetrofitManager.retrofitService.getNews(75, NewsID, "top").result.data
+            } catch (e: Exception) {
+//                data.value = Gson().fromJson(jsondata, Array<Data>::class)
+                data.value = Gson().fromJson(jsonData, NewsBean::class.java).result.data
+                e.printStackTrace()
+            }
+//            ResponseHandlerCoroutine.loadData<NewsBean> {
 //                load {
 //                    RetrofitManager.retrofitService.getNews(75, NewsID, "top")
 //                }
-                onNext {
-                    data.value = it.result.data
-                }
-                onError {
-                    it.printStackTrace()
-                }
-            }
+//                onNext {
+//                    data.value = it.result.data
+//                }
+//                onError {
+//                    it.printStackTrace()
+//                }
+//            }
         }
     }
 
@@ -55,9 +57,6 @@ class NewsViewModel : ViewModel() {
 //        return@withContext RetrofitManager.retrofitService.getNews(75, NewsID, "top")
 //            .execute().body()
 //    }
-
-
-    val handler = CoroutineExceptionHandler { _, exception ->
-        println("Caught $exception")
-    }
 }
+
+

@@ -18,7 +18,12 @@
             <option value="$PROJECT_DIR$/19-multi-touch" />
             <option value="$PROJECT_DIR$/20_21-drag-nestedscroll" />
             <option value="$PROJECT_DIR$/JavaDesign" />
+            <option value="$PROJECT_DIR$/aidlclient" />
+            <option value="$PROJECT_DIR$/aidlserver" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/hilt" />
+            <option value="$PROJECT_DIR$/jetpack" />
+            <option value="$PROJECT_DIR$/kotlinpractice" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

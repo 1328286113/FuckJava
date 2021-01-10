@@ -21,7 +21,7 @@ class TagLayout(context: Context?, attrs: AttributeSet?) : ViewGroup(context, at
         for (i in 0 until childCount - 1) {
             var childview = getChildAt(i)
             measureChildWithMargins(childview, widthMeasureSpec, 0, heightMeasureSpec, heightUsed)
-            var childbound: Rect
+                var childbound: Rect
             if (childbounds.size <= i) {
                 childbound = Rect()
                 childbounds.add(childbound)

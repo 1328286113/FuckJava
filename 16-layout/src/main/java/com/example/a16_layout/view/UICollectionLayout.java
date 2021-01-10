@@ -1,7 +1,6 @@
 package com.example.a16_layout.view;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
@@ -43,7 +42,7 @@ public class UICollectionLayout extends ViewGroup {
             //widthMeasureSpec:父view限制的宽度，widthUsed:已用的宽度
 //            measureChildWithMargins(childview, widthMeasureSpec, 0, heightMeasureSpec, heightUsed);
 //            measureChildren(MeasureSpec.makeMeasureSpec(childWidth,MeasureSpec.EXACTLY),heightMeasureSpec);
-            measureChild(childview,MeasureSpec.makeMeasureSpec(childWidth,MeasureSpec.EXACTLY),heightMeasureSpec);
+            measureChild(childview, MeasureSpec.makeMeasureSpec(childWidth, MeasureSpec.EXACTLY), heightMeasureSpec);
             Rect childbound;
             if (childbounds.size() <= i) {
                 childbound = new Rect();

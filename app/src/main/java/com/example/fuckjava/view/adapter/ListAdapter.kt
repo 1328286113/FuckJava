@@ -9,21 +9,14 @@ import com.example.fuckjava.R
 import com.example.fuckjava.databinding.ItemJokerBinding
 import com.example.fuckjava.josnbean.Data
 
-class ListAdapter : RecyclerView.Adapter<ListAdapter.ViewHolder> {
-    private var datas:List<Data>
-    constructor(datas: List<Data>) : super() {
-        this.datas = datas
-    }
+class ListAdapter(private var datas: List<Data>) : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_joker,parent,false))
     }
 
-    class ViewHolder: RecyclerView.ViewHolder {
-        private val itemjokerBinding: ItemJokerBinding?
-        constructor(v:View) : super(v){
-            itemjokerBinding = DataBindingUtil.bind(v)
-        }
+    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        private val itemjokerBinding: ItemJokerBinding? = DataBindingUtil.bind(v)
 
         fun bind(itembean: Data){
             itemjokerBinding?.bean = itembean
